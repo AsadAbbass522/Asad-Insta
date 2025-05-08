@@ -103,14 +103,14 @@ def index():
             }
         </style>
         <div class="navbar">
-            <h1>Welcome to Media Oasis</h1>
+            <h1>Welcome to Pictoria</h1>
             <div>
                 <a href="{{ url_for('login') }}">Login</a>
                 <a href="{{ url_for('register') }}">Register</a>
             </div>
         </div>
         <div class="container">
-            <h1>Welcome to Media Oasis</h1>
+            <h1>Welcome to Pictoria</h1>
             <p>Your media sharing platform.</p>
         </div>
     ''')
@@ -302,7 +302,7 @@ def dashboard():
     media = Media.query.filter(Media.title.contains(search_query)).options(
         joinedload(Media.comments).joinedload(Comment.user),
         joinedload(Media.ratings)
-    ).all()
+    ).order_by(Media.upload_date.desc()).all()
 
     if session['role'] == 'creator':
         return render_template_string('''
@@ -365,7 +365,7 @@ def dashboard():
                 }
             </style>
             <div class="navbar">
-                <h1>Welcome to Media Oasis</h1>
+                <h1>Welcome to Pictoria</h1>
                 <div>
                     <a href="{{ url_for('logout') }}">Logout</a>
                 </div>
@@ -463,7 +463,7 @@ def dashboard():
                 }
             </style>
             <div class="navbar">
-                <h1>Welcome to Media Oasis</h1>
+                <h1>Welcome to Pictoria</h1>
                 <div>
                     <a href="{{ url_for('logout') }}">Logout</a>
                 </div>
